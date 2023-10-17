@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HQtJnxJgvO8LN7GZslo20PrCVk/g+v21NyHvB1LFtbJi8RDxMiCdoF+V/7wZyXIpDhEPk2ZOPpVprMpDbkRyrg==",
+  "dgSpecHash": "JH1rexVsVUoM7vN+q4D2bm9kRJMyU4l0NBddWe3IsNBlVOMTWNoLWKroX9+LUKjBaGukaL15xEg5zFT9k/OLqA==",
   "success": true,
-  "projectFilePath": "D:\\Work\\ASP\\nxLINEclient\\nxLINEclient.csproj",
+  "projectFilePath": "D:\\trial\\nxClient\\nxLINEclient.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

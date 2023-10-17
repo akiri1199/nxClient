@@ -167,16 +167,16 @@ else
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 
-        @* if (firstRender)
-{
-await JSRuntime.InvokeVoidAsync("liff.init", new { liffId = liffId });
-var isLoggedIn = await JSRuntime.InvokeAsync<bool>("liff.isLoggedIn");//liffでアクセス
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("liff.init", new { liffId = liffId });
+            var isLoggedIn = await JSRuntime.InvokeAsync<bool>("liff.isLoggedIn");//liffでアクセス
 
-if (!isLoggedIn)
-{
-await JSRuntime.InvokeVoidAsync("liff.login");
-}
-} *@
+            if (!isLoggedIn)
+            {
+                await JSRuntime.InvokeVoidAsync("liff.login");
+            }
+        }
     }
 
     protected override void OnInitialized()
