@@ -1,0 +1,66 @@
+display-flex,
+.form-flex,
+.form-row,
+.add-info-link {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.clear {
+  clear: both;
+}
+
+body {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #222;
+  font-weight: 600;
+  font-family: 'Montserrat';
+
+}
+
+a {
+  color: #1da0f2;
+}
+
+.profile-container {
+  padding: 30px;
+  inline-size: 680px;
+  position: relative;
+  margin: 0 auto;
+  background: #fff;
+}
+
+
+@media screen and (max-inline-size: 768px) {
+  .container {
+    inline-size: calc(100% - 30px);
+    max-inline-size: 100%;
+  }
+}
+
+
+.required-value {
+  margin-inline-start: 13px;
+  color: red;
+  font-size: 10.5px;
+}
+
+/*# sourceMappingURL=style.css.map */
+
+
+#birthday label {
+  padding-block-start: 17px !important;
+  padding-inline-start: 5px;
+}
+
+.validation-error {
+  border: 1px solid red;
+  padding: 10px 0px;
+  border-radius: 5px;
+}
+
+
+.row-cols-3 {
+  padding-inline-start: 50px !important;
+}

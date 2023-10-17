@@ -1,0 +1,98 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@using System.Linq;
+@inject HttpClient httpClient;
+@using System.Text.Json;
+@using System.Text;
+@using System;
+@using System.Collections.Generic;
+@using System.Net.Http;
+@using System.Threading.Tasks;
+@using System.Text.RegularExpressions;
+@inject IConfiguration Configuration;
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+<div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+<label for="">checking login...</label>
+
+@code {
+    private UserData? myData { get; set; } = new UserData();
+    private isFriend isFriend = new isFriend();
+    private ProfileModel MyProfile { get; set; } = new ProfileModel();
+    public MemberModel Member = new MemberModel();
+    private string? endpoint;
+    private string? liffId;
+    private string? lineID;
+
+    private UserProfile userProfile = new UserProfile();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("liff.init", new { liffId = liffId }, endpoint);
+            var isLoggedIn = await JSRuntime.InvokeAsync<bool>("liff.isLoggedIn");//liffでアクセス
+
+            if (isLoggedIn)
+            {
+                isFriend = await JSRuntime.InvokeAsync<isFriend>("liff.getFriendship");
+                var profile_str = await httpClient.GetStringAsync(endpoint + "lineaccounts/" + lineID);//apiで基本情報を取得(api)
+                profile_str = Regex.Replace(profile_str, @",\s*\r?\n\s*]", "]");
+                profile_str = Regex.Replace(profile_str, "\"true\"", "true");
+                profile_str = Regex.Replace(profile_str, "\"false\"", "false");
+                StringBuilder modifiedString = new StringBuilder(profile_str);
+                string json = modifiedString.ToString();
+                myData = JsonSerializer.Deserialize<UserData>(json);
+
+                if (isFriend != null && isFriend.friendFlag)
+                {
+                    userProfile = await JSRuntime.InvokeAsync<UserProfile>("liff.getProfile");
+                    if (userProfile != null && userProfile.userId != null)
+                    {
+                        var isMember = await httpClient.GetStringAsync(endpoint + "Members/search?lineId=" +
+                        userProfile.userId); //memberの参照(api)
+                        JsonDocument memberDocument = JsonDocument.Parse(isMember);
+                        JsonElement members = memberDocument.RootElement;
+                        if (members.GetArrayLength() == 0)//member未登録
+                        {
+                            if (myData != null && myData.isProfile)//基本情報.プロフィール画面の表示有無の判定
+                            {
+                                NavigationManager.NavigateTo("/profile");
+                            }
+                            else
+                            {
+                                Member.member_lineid = userProfile.userId;
+                                Member.member_firstname = userProfile.displayName;
+                                Member.member_profileicon = userProfile.pictureUrl;
+                                await httpClient.PostAsJsonAsync(endpoint + "Members",
+                                Member);//line.userId、ニックネーム、アイコン以外はブランクの状態でメンバー作成apiのpost
+                                NavigationManager.NavigateTo(endpoint + "/profile?gender=男&radio=じ&check=BBB&check=RR");
+                            }
+                        }
+                        else
+                        {
+                            await JSRuntime.InvokeVoidAsync("liff.closeWindow"); //liffの関数操作
+                        }
+                    }
+                }
+                else
+                {
+                    await JSRuntime.InvokeVoidAsync("alert", "友達設定になっていません。");
+                }
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("liff.login");
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        liffId = Configuration["LiffId"];
+        endpoint = Configuration["endpointURL"];
+        lineID = Configuration["lineID"];
+        NavigationManager.NavigateTo("/rally");
+    }
+}

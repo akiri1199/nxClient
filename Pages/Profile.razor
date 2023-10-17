@@ -1,0 +1,634 @@
+﻿@page "/profile"
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+@using System.Text.Json;
+@using System.Text;
+@using System.Linq;
+@using Microsoft.JSInterop
+@inject HttpClient Http
+@inject HttpClient httpClient;
+@using System.Text.RegularExpressions;
+@inject IConfiguration Configuration;
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+<link href="/css/style.css" rel="stylesheet" /> 
+<div class="profile-container">
+    <form class= "needs-validation" novalidate>      
+
+        @if (myData.profileSettings != null)
+        {
+            @foreach (var field in myData.profileSettings)
+            {
+                <div>
+                    @if (field.visibility)
+                    {
+                        @if (field.data_type == "name")
+                        {
+                            <div class="mb-3 ">
+                                 @if (@field.required)
+                                    {
+                                    <label for="name" class="form-label">@field.label                                   
+                                            <i class="required-value">必須項目</i>                                    
+                                    </label>                                                                          
+                                    <input type="text" id="name" @bind="MyProfile.FormData.name" placeholder="@field.placeholder"
+                                    title="@field.hint" class="form-control" required />
+                                    <div class="invalid-feedback">
+                                        これは必須項目です。
+                                    </div>   
+                                }else{
+                                    <label for="name" class="form-label">@field.label</label>   
+                                    <input type="text" id="name" @bind="MyProfile.FormData.name" placeholder="@field.placeholder"
+                                title="@field.hint" class="form-control" />
+                                }                                              
+                            </div>
+                        }
+                        else if (field.data_type == "kana")
+                        {
+                            <div class="mb-3 ">
+                                 @if (@field.required)
+                                    {
+                                <label for="kana" class="form-label">@field.label
+                                    <i class="required-value">必須項目</i>
+                                </label>
+                                <input type="text" id="kana" @bind="MyProfile.FormData.kana" placeholder="@field.placeholder"
+                                title="@field.hint"  class="form-control" required/>
+                                <div class="invalid-feedback">
+                                    これは必須項目です。
+                                </div>
+                                 }else{
+                                    <label for="kana" class="form-label">@field.label</label>
+                                    <input type="text" id="kana" @bind="MyProfile.FormData.kana" placeholder="@field.placeholder"
+                                    title="@field.hint"  class="form-control"/>
+                                 }
+                            </div>
+                        }
+                        else if (field.data_type == "text")
+                        {
+                           
+                            <div class="mb-3">
+                                @if (@field.required)
+                                {
+                                    <label for="field.data_no" class="form-label">@field.label
+                                        <i class="required-value">必須項目</i>
+                                    </label>
+                                    <input type="text" id="field.data_no" @bind="MyProfile.FormData.text" placeholder="@field.placeholder"
+                                        title="@field.hint"  class="form-control" required/>
+                                    <div class="invalid-feedback">
+                                        これは必須項目です。
+                                    </div>
+                                }else{
+                                    <label for="field.data_no" class="form-label">@field.label</label>
+                                    <input type="text" id="field.data_no" @bind="MyProfile.FormData.text" placeholder="@field.placeholder"
+                                        title="@field.hint"  class="form-control"/>                                    
+                                }
+                            </div>
+                        }
+                        else if ((field.data_type == "gender") && field.select_item != null)
+                        {
+                            string[] radios = field.select_item.Split(',');
+                            <div class='mb-3' >
+                                 @if (@field.required)
+                                    {
+                                        <label for="field.data_no" class="form-label">@field.label                                        
+                                                <i class="required-value">必須項目</i>                                            
+                                        </label>  
+                                        <div class='row row-cols-3'>                                       
+                                            @foreach (var radio in radios)
+                                            {
+                                                <div class="form-check">
+                                                    <input type="radio" value="@radio" name="gender"
+                                                        checked="@MyProfile.FormData.IsSelected(radio)"
+                                                    @onchange="e => HandleRadioChange(e, radio,field.data_type)" class="form-check-input" required/>
+                                                    <label for="@radio" class="form-check-label">@radio</label>
+                                                </div>
+                                            }         
+                                            <div class="invalid-feedback">
+                                                これは必須項目です。
+                                            </div>                                                                
+                                        </div>     
+                                }else{
+                                       <label for="field.data_no" class="form-label">@field.label</label>  
+                                <div class='row row-cols-3'>                                       
+                                    @foreach (var radio in radios)
+                                    {
+                                        <div class="form-check">
+                                            <input type="radio" value="@radio" name="gender"
+                                                checked="@MyProfile.FormData.IsSelected(radio)"
+                                            @onchange="e => HandleRadioChange(e, radio,field.data_type)" class="form-check-input"/>
+                                            <label for="@radio" class="form-check-label">@radio</label>
+                                        </div>
+                                    }                                                        
+                                </div>  
+                                }                           
+                            </div>
+                        }
+                        else if ((field.data_type == "radio") && field.select_item != null)
+                        {
+                            string[] radios = field.select_item.Split(',');
+                            <div class="mb-3">
+                                @if (@field.required)
+                                    {
+                                <label for="field.data_no" class="form-label">@field.label                                    
+                                        <i class="required-value">必須項目</i>
+                                   
+                                </label>
+                                <div class="row row-cols-auto" style="padding-inline-start: 12px;">
+                                    @foreach (var radio in radios)
+                                    {
+                                        <div class="form-check">
+                                        <input type="radio" value="@radio"  name="radio"
+                                            checked="@MyProfile.FormData.IsSelected(radio)"
+                                        @onchange="e => HandleRadioChange(e, radio,field.data_type)"  class="form-check-input" required/>
+                                        <label for="@radio" class="form-check-label">@radio</label>
+                                        </div>
+                                    }
+                                    <div class="invalid-feedback">
+                                    これは必須項目です。
+                                </div>
+                                    </div>  
+                                     }else{
+                                        <label for="field.data_no" class="form-label">@field.label</label>
+                                <div class="row row-cols-auto" style="padding-inline-start: 12px;">
+                                    @foreach (var radio in radios)
+                                    {
+                                        <div class="form-check">
+                                        <input type="radio" value="@radio"  name="radio"
+                                            checked="@MyProfile.FormData.IsSelected(radio)"
+                                        @onchange="e => HandleRadioChange(e, radio,field.data_type)"  class="form-check-input" />
+                                        <label for="@radio" class="form-check-label">@radio</label>
+                                        </div>
+                                    }                                    
+                                    </div> 
+                                     }              
+                                </div>
+                        }
+                        else if (field.data_type == "check" && field.select_item != null)
+                        {
+                            string[] checks = field.select_item.Split(',');
+                                <div class="mb-3">
+                                    <label for="field.data_no" class="form-label">@field.label                                      
+                                    </label>
+                                    <div class="row row-cols-auto" style="padding-inline-start: 12px;">
+                                        @foreach (var check in checks)
+                                        {
+                                            <div class="col form-check">                                       
+                                                <input type="checkbox" value="@check" name="@field.data_type" id="@check"                                               
+                                                @onchange="e => HandleCheckboxChange(e, check)" class="form-check-input" />
+                                            <label class="form-check-label" for="@check">@check</label>
+                                            </div>
+                                        }
+                                    </div>                               
+                                </div>
+                        }
+                        else if (field.data_type == "birthday")
+                        {
+                            <div class="mb-3">
+                                @if (@field.required)
+                                    {
+                                <label for="field.data_no" class="form-label">@field.label                                    
+                                        <i class="required-value">必須項目</i>                                   
+                                </label>
+                                <div class="row row-cols-3 " id="birthday" style="padding-inline-start: 0px !important;">
+                                    <div class="col " style="display: flex;">
+                                        <select class="form-select" id="year" @bind="birthday.year" required >                                           
+                                            @for (var year = DateTime.Today.Year - 30; year <= DateTime.Today.Year; year++)
+                                            {
+                                                <option value="@year">@year</option>
+                                            }
+                                        </select>
+                                        
+                                        <label for="year" class="form-check-label">年:</label>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        これは必須項目です。
+                                    </div>  
+                                    <div class="col" style="display: flex;">
+                                        <select class="form-select" id="month" @bind="birthday.month" required>                                          
+                                            @foreach (var month in Enumerable.Range(1, 12))
+                                            {
+                                                <option value="@month">@month</option>
+                                            }
+                                        </select>
+                                       
+                                        <label for="month" class="form-check-label">月:</label>
+                                    </div>
+                                     <div class="invalid-feedback">
+                                        これは必須項目です。
+                                    </div>  
+                                    <div class="col" style="display: flex;">
+                                        <select class="form-select" id="day" @bind="birthday.day" required>
+                                           
+                                            @foreach (var day in Enumerable.Range(1,
+                                            DateTime.DaysInMonth(birthday.year,
+                                            birthday.month)))
+                                            {
+                                                <option value="@day">@day</option>
+                                            }
+                                        </select>
+                                        
+                                        <label for="day" class="form-check-label">日:</label>
+                                    </div>
+                                     <div class="invalid-feedback">
+                                        これは必須項目です。
+                                    </div>  
+                                </div>  
+                                }else{
+                                    <label for="field.data_no" class="form-label">@field.label</label>
+                                   <div class="row row-cols-3 " id="birthday" style="padding-inline-start: 0px !important;">
+                                    <div class="col " style="display: flex;">
+                                        <select class="form-select" id="year" @bind="birthday.year" >                                           
+                                            @for (var year = DateTime.Today.Year - 30; year <= DateTime.Today.Year; year++)
+                                            {
+                                                <option value="@year">@year</option>
+                                            }
+                                        </select>
+                                        
+                                        <label for="year" class="form-check-label">年:</label>
+                                    </div>
+                                     
+                                    <div class="col" style="display: flex;">
+                                        <select class="form-select" id="month" @bind="birthday.month" >                                          
+                                            @foreach (var month in Enumerable.Range(1, 12))
+                                            {
+                                                <option value="@month">@month</option>
+                                            }
+                                        </select>
+                                       
+                                        <label for="month" class="form-check-label">月:</label>
+                                    </div>
+                                     
+                                    <div class="col" style="display: flex;">
+                                        <select class="form-select" id="day" @bind="birthday.day" >                                           
+                                            @foreach (var day in Enumerable.Range(1,
+                                            DateTime.DaysInMonth(birthday.year,
+                                            birthday.month)))
+                                            {
+                                                <option value="@day">@day</option>
+                                            }
+                                        </select>                                        
+                                        <label for="day" class="form-check-label">日:</label>
+                                    </div>
+                                    
+                                </div>
+                                   }      
+                            </div>
+                        }
+                        else if (field.data_type == "date")
+                        {
+                            <div class="mb-3">
+                                 @if (@field.required)
+                                    {
+                                <label for="field.data_no" class="form-label">@field.label                                   
+                                        <i class="required-value">必須項目</i>                                    
+                                </label>
+                                <input id="field.data_no" type="date" placeholder="@field.placeholder"
+                                @bind="@MyProfile.FormData.date" class="form-control" required/>    
+                                <div class="invalid-feedback">
+                                    これは必須項目です。
+                                </div> 
+                                }else{
+                                    <label for="field.data_no" class="form-label">@field.label</label>
+                                    <input id="field.data_no" type="date" placeholder="@field.placeholder"
+                                    @bind="@MyProfile.FormData.date" class="form-control" />   
+                                }       
+                            </div>
+                        }
+                        else if (field.data_type == "tel")
+                        {
+                            <div class="mb-3">
+                                 @if (@field.required)
+                                    {
+                                <label for="field.data_no" class="form-label">@field.label                                   
+                                        <i class="required-value">必須項目</i>                                    
+                                </label>
+                                <input id="field.data_no" type="tel" placeholder="@field.placeholder"
+                                @bind="@MyProfile.FormData.tel" class="form-control" required/>
+                                <div class="invalid-feedback">
+                                    これは必須項目です。
+                                </div>
+                                }else{
+                                    <label for="field.data_no" class="form-label">@field.label </label>
+                                    <input id="field.data_no" type="tel" placeholder="@field.placeholder"
+                                    @bind="@MyProfile.FormData.tel" class="form-control"/>
+                                }
+                            </div>
+                        }
+                        else if (field.data_type == "email")
+                        {
+                            <div class="mb-3">
+                            @if (@field.required)
+                                    {
+                                <label for="field.data_no" class="form-label">@field.label                                   
+                                        <i class="required-value">必須項目</i>                                    
+                                </label>
+                                <input type="email" id="field.data_no" placeholder="@field.placeholder"
+                                @bind="@MyProfile.FormData.email" class="form-control" required/>       
+                                <div class="invalid-feedback">
+                                    これは必須項目です。
+                                </div> 
+                                }else{
+                                    <label for="field.data_no" class="form-label">@field.label</label>
+                                    <input type="email" id="field.data_no" placeholder="@field.placeholder"
+                                    @bind="@MyProfile.FormData.email" class="form-control" />                                       
+                                }    
+                            </div>
+                        }
+
+                        else if (field.data_type == "textarea")
+                        {
+                            <div class="mb-3">
+                                @if (@field.required)
+                                    {
+                                <label for="field.data_no" class="form-label">@field.label
+                                    
+                                        <i class="required-value">必須項目</i>
+                                    
+                                </label>
+                                <textarea class="form-control" placeholder="@field.placeholder" id="@field.data_no"
+                                @bind="@MyProfile.FormData.textarea" rows="4" required></textarea>
+                                <div class="invalid-feedback">
+                                    これは必須項目です。
+                                </div>
+                               }else{
+                                    <label for="field.data_no" class="form-label">@field.label</label>
+                                    <textarea class="form-control" placeholder="@field.placeholder" id="@field.data_no"
+                                    @bind="@MyProfile.FormData.textarea" rows="4"></textarea>
+                               }
+                            </div>
+                        }
+                        else if (field.data_type == "select" && field.select_item != null)
+                        {
+                            string[] options = field.select_item.Split(',');
+                            <div class="mb-3">
+                                 @if (@field.required)
+                                    {
+                                <label for="@field.label" class="form-label">@field.label                                   
+                                        <i class="required-value">必須項目</i>                                    
+                                </label>
+                                <select class="form-select" id="@field.data_no" @bind="@MyProfile.FormData.select"
+                                    placeholder="@field.placeholder" required>
+                                    <option> </option>
+                                    @foreach (var option in options)
+                                    {
+                                        <option value="@option">@option</option>
+                                    }
+                                </select>
+                                <div class="invalid-feedback">
+                                    これは必須項目です。
+                                </div>
+                                }else{
+                                    <label for="@field.label" class="form-label">@field.label</label>
+                                    <select class="form-select" id="@field.data_no" @bind="@MyProfile.FormData.select"
+                                    placeholder="@field.placeholder" >
+                                    <option> </option>
+                                    @foreach (var option in options)
+                                    {
+                                        <option value="@option">@option</option>
+                                    }
+                                </select>
+                                }
+                            </div>
+                        }
+                        else if (field.data_type == "address" && field.select_item != null)
+                        {
+                            string[] options = field.select_item.Split(',');
+
+                            <div class="mb-3">
+                                <label for="postal" class="form-label">郵便番号</label>
+                                <div class="form-flex" id="postal" style="margin: 10px 0px;">
+                                    <input type="text" placeholder="郵便番号" @bind="current.Zipcode" 
+                                    @oninput="e=>onChangeZipCode(e)" class="form-control"/>
+                                    @if (current.Zipcode.Length > 0)
+                                    {
+                                        <button class="btn btn-primary" type="button" id="btn_zipcode"
+                                            style="margin: 10px 20px; padding : 5px 5px;inline-size:50px; height :40px!important;"
+                                        @onclick="ZipSearch">検索</button>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @if (@field.required)
+                                    {
+                                <div class="mb-3 form-address">                                    
+                                        <label for="prefecture" class="form-label">都道府県                                       
+                                            <i class="required-value">必須項目</i>                                        
+                                        </label>
+                                        <select class="form-select" id="prefecture" placeholder="@field.placeholder" @bind="current.Address1" required>
+                                            <option value=""></option>
+                                            @foreach (var option in options)
+                                            {
+                                                <option value="@option">@option</option>
+                                            }
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            これは必須項目です。
+                                        </div>
+                                        </div>
+
+                                        <div class="mb-3 form-address">
+                                            <label for="address2" class="form-label">市区町村                                       
+                                                <i class="required-value">必須項目</i>                                       
+                                            </label>
+                                            <input type="text" id="address2" placeholder="市区町村" @bind="current.Address2" class="form-control" required/>
+                                            <div class="invalid-feedback">
+                                                これは必須項目です。
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 form-address">
+                                            <label for="address3" class="form-label">住所                                        
+                                                <i class="required-value">必須項目</i>
+                                            </label>
+                                            <input type="text" placeholder="住所" id="address3" @bind="current.Address3" class="form-control" required/>
+                                            <div class="invalid-feedback">
+                                                これは必須項目です。
+                                            </div>
+                                        </div>
+                                    }else{
+                                    <div class="mb-3 form-address">                                    
+                                        <label for="prefecture" class="form-label">都道府県</label>
+                                        <select  id="prefecture" placeholder="@field.placeholder" @bind="current.Address1" class="form-select">
+                                            <option value=""></option>
+                                            @foreach (var option in options)
+                                            {
+                                                <option value="@option">@option</option>
+                                            }
+                                        </select>                                        
+                                        </div>
+                                        <div class="mb-3 form-address">
+                                            <label for="address2" class="form-label">市区町村 </label>
+                                            <input type="text" id="address2" placeholder="市区町村" @bind="current.Address2" class="form-control" />                                           
+                                        </div>
+                                        <div class="mb-3 form-address">
+                                            <label for="address3" class="form-label">住所</label>
+                                            <input type="text" placeholder="住所" id="address3" @bind="current.Address3" class="form-control" />                                            
+                                        </div>
+                                    }
+                                </div>     
+                                                                        
+                        }
+
+                    }
+                </div>
+            }
+        }
+<button type="submit"   class="btn btn-primary">保   存</button>
+    </form>
+</div>
+
+@code {
+
+    private UserData myData = new UserData();
+    private ProfileModel MyProfile { get; set; } = new ProfileModel();
+    private BirthdayModel birthday { get; set; } = new BirthdayModel();
+   
+    private string liffId="";
+    private string lineID="";
+    private string endpoint="";
+
+    protected override async Task OnInitializedAsync()
+    {
+        liffId = Configuration["LiffId"]!;       
+        endpoint = Configuration["endpointURL"]!;
+        lineID = Configuration["lineID"]!;
+        birthday.year = DateTime.Today.Year - 30;
+        birthday.month = 1;
+        birthday.day = 1;
+        var profile_str = await httpClient.GetStringAsync(endpoint + "lineaccounts/" + lineID);
+        JsonDocument jsonDocument = JsonDocument.Parse(profile_str);
+        JsonElement root = jsonDocument.RootElement;
+        string temp_str = root.GetProperty("profileSetting").GetString()!;
+        temp_str = Regex.Replace(temp_str, @",\s*\r?\n\s*]", "]");
+        temp_str = Regex.Replace(temp_str, "\"true\"", "true");
+        temp_str = Regex.Replace(temp_str, "\"false\"", "false");
+        StringBuilder modifiedString = new StringBuilder(temp_str);    
+        string json = modifiedString.ToString();
+        myData.profileSettings = JsonSerializer.Deserialize<List<ProfileField>>(json);          
+    }
+ protected override async Task OnAfterRenderAsync(bool firstRender)
+    {       
+            await JSRuntime.InvokeVoidAsync("eval", @"
+                (() => {
+                  'use strict';                 
+                  const forms = document.querySelectorAll('.needs-validation');                
+                  Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                      if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                      }
+                      form.classList.add('was-validated');
+                    }, false);
+                  });
+                })();
+            ");
+        
+    }
+    private void onChangeZipCode(ChangeEventArgs e)
+    {
+        current.Address1 = "";
+        current.Address2 = "";
+        current.Address3 = "";
+        StateHasChanged();
+        current.Zipcode = (string)e.Value!;
+        if (current.Zipcode.Length > 0)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task SubmitForm()
+    {
+       
+        insertAddress();
+        MyProfile.FormData.check = string.Join(", ", MyProfile.FormData.SelectedValues);
+        MyProfile.FormData.birthday = DateOnly.FromDateTime(new DateTime(birthday.year, birthday.month, birthday.day));
+
+        if (MyProfile.FormData.address.Length > 8)
+        {
+            var response = await Http.PostAsJsonAsync( endpoint + "Members", MyProfile.FormData);//入力内容を登録btnでAPI post
+            if(response.IsSuccessStatusCode){
+                await JSRuntime.InvokeVoidAsync("liff.closeWindow");
+            }else{
+                await JSRuntime.InvokeVoidAsync("alert", "登録に失敗しました。!");
+            }
+        } 
+    }
+
+
+    private void HandleRadioChange(ChangeEventArgs e, string option, string what)
+    {
+        if (e.Value != null)
+        {
+            if (what == "radio")
+            {
+                MyProfile.FormData.radio = (string)e.Value;
+            }
+            else if (what == "gender")
+            {
+                MyProfile.FormData.gender = (string)e.Value;
+            }
+        }
+    }
+    private void HandleCheckboxChange(ChangeEventArgs e, string option)
+    {
+        if (e.Value != null)
+        {
+            bool isChecked = (bool)e.Value;
+
+            if (isChecked)
+            {
+                MyProfile.FormData.SelectedValues.Add(option);
+            }
+            else
+            {
+                MyProfile.FormData.SelectedValues.Remove(option);
+            }
+        }
+    }
+
+    private void insertAddress()
+    {
+        if ((current.Address1 != null && current.Address2 != null) && (current.Address3 != null))
+        {
+            MyProfile.FormData.address = current.Zipcode + " " + current.Address1 + " " + current.Address2 + " " + current.Address3;
+        }
+        else
+        {
+            MyProfile.FormData.address = "";
+        }
+    }
+    private JpZip? httpResult = new JpZip();
+
+    private Result current = new Result();
+    private async void ZipSearch()
+    {
+        if (current.Zipcode.Length == 7)
+        {
+            httpResult = await Http.GetFromJsonAsync<JpZip>("https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + current.Zipcode);
+
+            if (httpResult?.Status == 200)
+            {
+                if (httpResult.Results != null)
+                {
+                    current = httpResult.Results[0];
+                    insertAddress();
+                }
+                else
+                {
+                    httpResult.Message = "該当なし";
+                }
+            }
+            this.StateHasChanged();
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "ZIPコードは7桁の数字で入力してください。!");
+            current.Address1 = "";
+            current.Address2 = "";
+            current.Address3 = "";
+        }
+
+    }
+}
