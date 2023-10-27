@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\trial\\nxClient\\nxLINEclient.csproj": {}
+    "D:\\trial\\nxLINEclient\\nxLINEclient\\nxLINEclient.csproj": {}
   },
   "projects": {
-    "D:\\trial\\nxClient\\nxLINEclient.csproj": {
+    "D:\\trial\\nxLINEclient\\nxLINEclient\\nxLINEclient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\trial\\nxClient\\nxLINEclient.csproj",
+        "projectUniqueName": "D:\\trial\\nxLINEclient\\nxLINEclient\\nxLINEclient.csproj",
         "projectName": "nxLINEclient",
-        "projectPath": "D:\\trial\\nxClient\\nxLINEclient.csproj",
+        "projectPath": "D:\\trial\\nxLINEclient\\nxLINEclient\\nxLINEclient.csproj",
         "packagesPath": "C:\\Users\\vinus\\.nuget\\packages\\",
-        "outputPath": "D:\\trial\\nxClient\\obj\\",
+        "outputPath": "D:\\trial\\nxLINEclient\\nxLINEclient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vinus\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

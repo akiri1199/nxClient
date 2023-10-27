@@ -89,25 +89,26 @@ a,
     cursor: pointer;
     padding: 0px;
     z-index: 100;
-
 }
 
 .card-title {
     font-size: 2vw;
     margin-block-start: 1rem;
     margin-block-end: 0px;
+    z-index: 1;
 }
 
 .card-body {
     padding: 0.5rem;
+    z-index: 1;
 }
 
 
 
-.btn-close {
+.popup-close {
     position: absolute;
     inset-inline-end: 0px;
-    inset-block-start: 10px;
+    inset-block-start: 5px;
     z-index: 9999999;
 }
 
@@ -119,7 +120,7 @@ a,
 
 .card-footer {
     position: relative;
-    z-index: 9999999;
+    z-index: 2;
     background-color: white;
 }
 
@@ -127,15 +128,31 @@ a,
     inline-size: 100%;
 }
 
+.img-container {
+    z-index: 1;
+    block-size: 100vh !important;
+    inline-size: 100% !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    position: relative;
+}
+
+.footer-btn {
+    position: relative;
+    inset-block-end: 0.8rem;
+    inset-inline-start: 50%;
+    transform: translate(-50%, 25%);
+}
+
+.used-btn {
+    margin-block-start: 10px !important;
+}
 
 .qr-img {
     padding: 10px;
-    border: 1px solid black;
-    background-color: #eee;
+    border: rgba(0, 0, 0, 0.5) double 2px;
     cursor: pointer;
-    z-index: 98;
-    border-radius: 50%;
-    margin-inline-start: -5vw;
+    /* border-radius: 50%; */
     margin-inline-start: auto;
     margin-inline-end: auto;
     font-size: 5.5vw !important;
@@ -145,16 +162,10 @@ a,
     position: relative;
     max-block-size: 200px;
     overflow: auto;
-    z-index: 9999999;
+    z-index: 99;
 }
 
 
-.footer-btn {
-    position: fixed !important;
-    inset-block-end: 0px !important;
-    inset-inline-start: 49%;
-    z-index: 98;
-}
 
 .stamp-img {
     margin-block-start: 15%;
@@ -179,15 +190,13 @@ a,
         max-inline-size: 20vw;
     }
 
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 15%;
-        inset-block-start: 9.4%;
-        max-inline-size: 25vw;
-    }
-
-    .footer-btn {
-        inset-inline-start: 46.9%;
+    .confirm-dialog {
+        position: fixed;
+        inline-size: 80%;
+        inset-block-start: 15%;
+        inset-inline-start: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
     }
 }
 
@@ -204,14 +213,6 @@ a,
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         z-index: 9999;
     }
-
-
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 15%;
-        inset-block-start: 9.4%;
-        max-inline-size: 25.3vw;
-    }
 }
 
 @media screen and (max-width: 1440px) {
@@ -227,20 +228,8 @@ a,
         z-index: 9999;
     }
 
-
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 15%;
-        inset-block-start: 8.9%;
-        max-inline-size: 36vw;
-    }
-
     #imageTitle {
         font-size: 2.2vw;
-    }
-
-    .footer-btn {
-        inset-inline-start: 46.5%;
     }
 }
 
@@ -261,17 +250,6 @@ a,
         margin-block-start: 16%;
         max-inline-size: 20vw;
     }
-
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 15%;
-        inset-block-start: 8.8%;
-        max-inline-size: 45vw;
-    }
-
-    .footer-btn {
-        inset-inline-start: 46.2%;
-    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -291,13 +269,6 @@ a,
         margin-block-start: 15%;
         max-inline-size: 20vw;
     }
-
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 14%;
-        inset-block-start: 8.8%;
-        max-inline-size: 51vw;
-    }
 }
 
 @media screen and (max-width: 900px) {
@@ -312,65 +283,25 @@ a,
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         z-index: 9999;
     }
-
-
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 14%;
-        inset-block-start: 8.8%;
-        max-inline-size: 51vw;
-    }
-
-    .footer-btn {
-        inset-inline-start: 46%;
-    }
 }
 
 @media screen and (max-width: 768px) {
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 15%;
-        inset-block-start: 8.5%;
-        max-inline-size: 50vw;
-    }
-
     .stamp-img {
         margin-block-start: 14%;
         max-inline-size: 20vw;
     }
-
-    .footer-btn {
-        inset-inline-start: 46%;
-    }
-
 }
 
 @media screen and (max-width: 700px) {
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 15%;
-        inset-block-start: 8.5%;
-        max-inline-size: 50vw;
-    }
+
 
     .stamp-img {
         margin-block-start: 13.4%;
         max-inline-size: 20vw;
     }
-
-    .footer-btn {
-        inset-inline-start: 45.5%;
-    }
 }
 
 @media screen and (max-width: 583px) {
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 13.4%;
-        inset-block-start: 6.5%;
-        max-inline-size: 49vw;
-    }
-
     .stamp-img {
         margin-block-start: 12.4%;
         max-inline-size: 20vw;
@@ -379,21 +310,16 @@ a,
     .card-title {
         font-size: 3vw;
     }
+}
 
+@media screen and (max-width: 650px) {
     .footer-btn {
-        inset-inline-start: 45.1%;
+        position: absolute !important;
+        inset-block-end: 1.5rem !important;
     }
 }
 
 @media screen and (max-width: 425px) {
-
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 12%;
-        inset-block-start: 7.6%;
-        max-inline-size: 50vw;
-    }
-
     .stamp-img {
         margin-block-start: 12%;
         max-inline-size: 20vw;
@@ -408,17 +334,12 @@ a,
     }
 
     .footer-btn {
-        inset-inline-start: 44.1%;
+        position: absolute !important;
+        inset-block-end: 0.5rem;
     }
 }
 
 @media screen and (max-width: 375px) {
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 10%;
-        inset-block-start: 7%;
-        max-inline-size: 50vw;
-    }
 
     #imageTitle {
         font-size: 4.2vw;
@@ -432,15 +353,14 @@ a,
     .card-title {
         font-size: 3vw;
     }
+
+    .footer-btn {
+        position: absolute !important;
+        inset-block-end: 0.5rem;
+    }
 }
 
 @media screen and (max-width: 320px) {
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 10%;
-        inset-block-start: 9.8%;
-        max-inline-size: 50vw;
-    }
 
     #imageTitle {
         font-size: 4.2vw;
@@ -455,11 +375,9 @@ a,
         max-inline-size: 20vw;
     }
 
-    .popupStamp {
-        position: relative;
-        inset-inline-start: 14%;
-        inset-block-start: 11.5%;
-        max-inline-size: 45vw;
+    .footer-btn {
+        position: absolute !important;
+        inset-block-end: 0.5rem;
     }
 }
 
@@ -481,11 +399,6 @@ img {
 
 .grayscale-image {
     filter: grayscale(100%);
-}
-
-.img-container {
-    margin-block-end: 6.4vw !important;
-    z-index: 1;
 }
 
 .remove {
@@ -511,7 +424,7 @@ img {
 }
 
 .animate {
-    animation: stampAnimation 1s linear;
+    animation: stampAnimation 5s linear;
 }
 
 @keyframes stampAnimation {
@@ -530,4 +443,36 @@ img {
     100% {
         opacity: 1;
     }
+}
+
+#toast-container {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+}
+
+.modal-body>p {
+    font-size: 1.2rem;
+}
+
+@keyframes grayscale-animation {
+    0% {
+        filter: none;
+    }
+
+    25% {
+        filter: grayscale(25%);
+    }
+
+    50% {
+        filter: grayscale(50%);
+    }
+
+    100% {
+        filter: grayscale(100%);
+    }
+}
+
+.grayscale-checkpoint {
+    animation: grayscale-animation 5s linear;
 }

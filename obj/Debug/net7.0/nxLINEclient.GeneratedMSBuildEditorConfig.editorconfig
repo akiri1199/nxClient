@@ -9,49 +9,49 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = nxLINEclient
 build_property.RootNamespace = nxLINEclient
-build_property.ProjectDir = D:\trial\nxClient\
+build_property.ProjectDir = D:\trial\nxLINEclient\nxLINEclient\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\trial\nxClient
+build_property.MSBuildProjectDirectory = D:\trial\nxLINEclient\nxLINEclient
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/trial/nxClient/App.razor]
+[D:/trial/nxLINEclient/nxLINEclient/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/trial/nxClient/Pages/Index.razor]
+[D:/trial/nxLINEclient/nxLINEclient/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/trial/nxClient/Pages/Profile.razor]
+[D:/trial/nxLINEclient/nxLINEclient/Pages/Profile.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/trial/nxClient/Pages/Rally.razor]
+[D:/trial/nxLINEclient/nxLINEclient/Pages/Rally.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmFsbHkucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/trial/nxClient/Shared/SurveyPrompt.razor]
+[D:/trial/nxLINEclient/nxLINEclient/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/trial/nxClient/_Imports.razor]
+[D:/trial/nxLINEclient/nxLINEclient/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/trial/nxClient/Shared/MainLayout.razor]
+[D:/trial/nxLINEclient/nxLINEclient/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-64y2zpqhm2
 
-[D:/trial/nxClient/Shared/NavMenu.razor]
+[D:/trial/nxLINEclient/nxLINEclient/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-ajtjgzv6zo
 
-[D:/trial/nxClient/Pages/Error.cshtml]
+[D:/trial/nxLINEclient/nxLINEclient/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/trial/nxClient/Pages/_Host.cshtml]
+[D:/trial/nxLINEclient/nxLINEclient/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
