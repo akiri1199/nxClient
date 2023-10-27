@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pzYt4XMPguT4ZxCeOURKRDzXPCRinL0gXHFXFchPI+8=",
+  "Hash": "1D46Mf9cnVkPobIr7AcFz4t1PbAaVx4MojPXEwErbyM=",
   "Source": "nxLINEclient",
   "BasePath": "_content/nxLINEclient",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "nxLINEclient\\wwwroot",
       "Source": "nxLINEclient",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\bundle\\nxLINEclient.styles.css",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\bundle\\nxLINEclient.styles.css",
       "SourceId": "nxLINEclient",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "nxLINEclient.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Work\\ASP\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\bundle\\nxLINEclient.styles.css"
+      "OriginalItemSpec": "D:\\trial\\nxLINEclient\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\bundle\\nxLINEclient.styles.css"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\nxLINEclient.bundle.scp.css",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\nxLINEclient.bundle.scp.css",
       "SourceId": "nxLINEclient",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "nxLINEclient.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Work\\ASP\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\nxLINEclient.bundle.scp.css"
+      "OriginalItemSpec": "D:\\trial\\nxLINEclient\\nxLINEclient\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\nxLINEclient.bundle.scp.css"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\jquery-ui.min.css",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\jquery-ui.min.css",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/jquery-ui.min.css",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\jquery-ui.min.css"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\site.css",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\site.css",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\css\\style.css",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\css\\style.css",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "css/style.css",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\favicon.png",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\favicon.png",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
@@ -306,12 +306,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.png"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\images\\stamp.jpg",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\images\\qr_btn.png",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
-      "RelativePath": "images/stamp.jpg",
+      "RelativePath": "images/qr_btn.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -320,13 +320,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\stamp.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\qr_btn.png"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\index.html",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\index.html",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\js\\custom.js",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\js\\custom.js",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "js/custom.js",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\js\\custom.js"
     },
     {
-      "Identity": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\js\\liff-sdk.js",
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\js\\liff-sdk.js",
       "SourceId": "nxLINEclient",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Work\\ASP\\nxLINEclient\\wwwroot\\",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
       "BasePath": "_content/nxLINEclient",
       "RelativePath": "js/liff-sdk.js",
       "AssetKind": "All",
@@ -372,6 +372,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\liff-sdk.js"
+    },
+    {
+      "Identity": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\js\\notify.js",
+      "SourceId": "nxLINEclient",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\trial\\nxLINEclient\\nxLINEclient\\wwwroot\\",
+      "BasePath": "_content/nxLINEclient",
+      "RelativePath": "js/notify.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\notify.js"
     }
   ]
 }

@@ -5,68 +5,101 @@
 @using System.Text.Json;
 @using System.Text.RegularExpressions;
 @using System.Text;
+@inject SharedFunctions SharedFunctions;
+<PageTitle>スタンプラリー</PageTitle>
 
-<PageTitle>RallyProject</PageTitle>
+@if (showDialog)
+{
+    <div class="modal-dialog confirm-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">確認</h5>
+                <button type="button" class="btn-close close" aria-label="Close" @onclick="Cancel"></button>
+            </div>
+            <div class="modal-body">
+                <p>引き換え済みにすると元に戻せませんがよろしいですか？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary " @onclick="Confirm"> はい</button>
+                <button type="button" class="btn btn-secondary " @onclick="Cancel">いいえ</button>
+            </div>
+        </div>
+    </div>
+}
 @if (events == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p><em>Checking and Loading...</em></p>
 }
 else
 {
     if (events.eventStartdate is not null && events.eventEnddate is not null)
     {
-        @if (DateTime.Today >= DateTime.Parse(events.eventStartdate) && DateTime.Today <=
-       DateTime.Parse(events.eventEnddate))
+        @if (DateTime.Today < DateTime.Parse(events.eventStartdate))
+        {
+            <div class="row text-center" style="block-size: 100vh;">
+                <div class="col align-self-center">
+                    <h4>イベントは開催されていません</h4>
+                </div>
+            </div>
+        }
+        else if (DateTime.Today >
+        DateTime.Parse(events.eventEnddate))
+        {
+            <div class="row text-center" style="block-size: 100vh;">
+                <div class="col align-self-center">
+                    <h4>イベントは終了しています</h4>
+                </div>
+            </div>
+        }
+        else
         {
             <h4 class="text-center event-title">@events.eventName</h4>
             <div id="overlay"></div>
-            <div class=" text-center img-container">
+            <div class="text-center">
                 <div class="row row-cols-2">
                     @if (events.checkpoints is not null)
                     {
                         @foreach (var item in events.checkpoints)
                         {
                             bool isCheckpoint = false;
+                            string hasStamp = "";
+                            string isStamp = "none";
                             @if (checkins is not null)
                             {
                                 isCheckpoint = checkins.Any(c => c.checkinCheckpointId == item.checkpointId) ? true : false;
+                                hasStamp = isCheckpoint ? "grayscale-image check-point-img" : "";
+                                isStamp = isCheckpoint ? "block" : "none";
                             }
                             <div class="col card">
                                 <div class="card-body">
-                                    @if (isCheckpoint)
-                                    {
-                                        <img src="@item.checkpointImageurl" class="card-img-top grayscale-image check-point-img"
-                                            @onclick="(() => ShowImagePopup(item.checkpointImageurl,item.checkpointName, item.checkpointDescription,false,item.checkpointUrl))">
-                                        <div class="card-img-overlay">
-                                            <img src="@events.eventStampurl" alt="" class="stamp-img"
-                                                @onclick="(() => ShowImagePopup(item.checkpointImageurl,item.checkpointName, item.checkpointDescription,true,item.checkpointUrl))">
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <img src="@item.checkpointImageurl" class="card-img-top"
-                                            @onclick="(() => ShowImagePopup(item.checkpointImageurl,item.checkpointName, item.checkpointDescription,false,item.checkpointUrl))">
-                                    }
+                                    <img src="@item.checkpointImageurl" class="card-img-top @hasStamp" alt="@item.checkpointName"
+                                        @onclick="(() =>ShowImagePopup(item.checkpointImageurl, item.checkpointName, item.checkpointDescription, item.checkpointUrl))">
 
+                                    <div class="card-img-overlay" style="display: @isStamp;">
+                                        <img src="@events.eventStampurl" alt="" class="stamp-img"
+                                            @onclick="(() => ShowImagePopup(item.checkpointImageurl,item.checkpointName,item.checkpointDescription,item.checkpointUrl))">
+                                    </div>
                                     <h5 class="card-title">@item.checkpointName</h5>
                                 </div>
                             </div>
                         }
                     }
                 </div>
+                <div class="text-center footer-btn">
+
+                    @if (checkins?.Count == events?.checkpoints?.Count && checkins?.Count > 0)
+                    {
+                        <button class="btn btn-success used-btn btn-lg" id="usedBtn" @onclick="ShowConfirmation">引換済みにする</button>
+                    }
+                    else
+                    {
+                        <img src="/images/qr_btn.png" @onclick="addStamp" class="qr-img" />
+                    }
+                </div>
             </div>
-
-            <footer class="text-center footer-btn">
-
-                @if (checkins?.Count == events?.checkpoints?.Count)
-                {
-                    <span>使用済み</span>
-                }
-                else
-                {
-                    <span @onclick="addStamp" class="material-symbols-outlined qr-img">qr_code</span>
-                }
-            </footer>
         }
     }
 
@@ -74,14 +107,10 @@ else
         <div class="card">
             <div class="card-header">
                 <h4 id="imageTitle"></h4>
-                <button type="button" class="btn-close" aria-label="Close" @onclick="closeImagePopup"></button>
+                <button type="button" class="btn-close popup-close" aria-label="Close" @onclick="closeImagePopup"></button>
             </div>
             <img id="popupImage" src="" alt="Popup Image">
             <div class="card-body">
-                <div class="card-img-overlay ">
-                    <img src="@events?.eventStampurl" id="popupStamp" class="popupStamp rounded d-block" alt=""
-                        style="display: none;">
-                </div>
                 <p id="imageDetails"></p>
             </div>
             <div class="card-footer text-center">
@@ -89,99 +118,177 @@ else
             </div>
         </div>
     </div>
-
 }
 @code {
     private Event? events;
-    private List<Checkin>? checkins;
+    private List<Checkin>? checkins = new List<Checkin>();
+    private string? endpoint;
     private string? liffId;
-    private async Task ShowImagePopup(string? imageUrl, string? imageTitle, string? imageDetails, bool stamp, string?
+    private string? lineID;
+    private UserProfile userProfile = new UserProfile();
+    private EventComplete eventComplete = new EventComplete();
+    private bool showDialog = false;
+
+
+    private async void ShowConfirmation()
+    {
+        showDialog = true;
+        await JSRuntime.InvokeVoidAsync("darkBlurBackground");
+    }
+
+    private async void Confirm()
+    {
+        showDialog = false;
+        await JSRuntime.InvokeVoidAsync("clearBackground");
+        eventComplete.eventId = events?.eventId;
+        eventComplete.lineId = userProfile.userId;
+        var response = await httpClient.PostAsJsonAsync(endpoint + "Rally/EventComplete", eventComplete);
+        if (response.IsSuccessStatusCode)
+        {
+            if (checkins?.Count == events?.checkpoints?.Count && checkins?.Count > 0)
+            {
+                await JSRuntime.InvokeVoidAsync("disableButton");
+            }
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("showModal", "確認", "失敗しました。");
+        }
+    }
+
+    private async void Cancel()
+    {
+        showDialog = false;
+        await JSRuntime.InvokeVoidAsync("clearBackground");
+    }
+
+    private async Task ShowImagePopup(string? imageUrl, string? imageTitle, string? imageDetails, string?
     imageCheckpointURL)
     {
-        await JSRuntime.InvokeVoidAsync("showImagePopup", imageUrl, imageTitle, imageDetails, stamp, imageCheckpointURL);
+        await JSRuntime.InvokeVoidAsync("showImagePopup", imageUrl, imageTitle, imageDetails, imageCheckpointURL);
     }
     private async Task closeImagePopup()
     {
         await JSRuntime.InvokeVoidAsync("closeImagePopup");
     }
-
     private async Task addStamp()
     {
         var isInClient = await JSRuntime.InvokeAsync<bool>("liff.isInClient");
+        Liff_scanQR_Result? scanQR_result;
         string? qr_result;
+
         if (isInClient)
         {
-            qr_result = await JSRuntime.InvokeAsync<string>("liff.scanCodeV2");
+            scanQR_result = await JSRuntime.InvokeAsync<Liff_scanQR_Result>("liff.scanCodeV2");
+            qr_result = scanQR_result.value;
         }
-        qr_result = await JSRuntime.InvokeAsync<string>("prompt", "QRコード読取り模擬:");
-        if (qr_result is not null)
+        else
         {
-            bool isQr = events?.checkpoints?.Exists(cp => cp.checkpointQr?.Contains(qr_result) == true) ?? false;
+            qr_result = await JSRuntime.InvokeAsync<string>("prompt", "QRコード読取り模擬:"); //scancodeの代わりに一時的に使用
+        }
+
+        if (events?.eventId > -1 && userProfile.userId is not null && qr_result is not null)
+        {
+            bool isQr = events?.checkpoints?.Exists(cp => cp.checkpointQr?.Equals(qr_result) == true) ?? false;
             if (isQr)
             {
-                Checkpoint checkpointsWithQr = events?.checkpoints?.FirstOrDefault(cp => cp?.checkpointQr?.Contains(qr_result)
-                == true);
-
+                Checkpoint checkpointsWithQr = events?.checkpoints?.FirstOrDefault(cp => cp?.checkpointQr?.Equals(qr_result)
+                == true) ?? new Checkpoint();
                 Checkin newCheckin = new Checkin();
+
+                newCheckin.checkinUserid = "0";
+                newCheckin.checkinCreated = DateTime.Now;
                 newCheckin.checkinCheckpointId = checkpointsWithQr.checkpointId;
+                newCheckin.checkinLineid = userProfile.userId;
+                newCheckin.checkinEventid = events!.eventId;
 
                 if (checkins is not null && checkins.Contains(newCheckin))
                 {
-                    //await JSRuntime.InvokeVoidAsync("removeStamp");
-                    // checkins?.Remove(newCheckin);
-                    await JSRuntime.InvokeAsync<string>("alert", "既にチェックイン済みです");
+                    await JSRuntime.InvokeVoidAsync("showNotification", "既にチェックイン済みです", "success");
                 }
                 else
                 {
-                    checkins?.Add(newCheckin);
-                    //await JSRuntime.InvokeVoidAsync("showNotification", "asdf", "success");
+                    var response = await httpClient.PostAsJsonAsync(endpoint + "Rally/Checkin", newCheckin);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await JSRuntime.InvokeVoidAsync("addStamp", newCheckin.checkinCheckpointId);
+                        await Task.Delay(4000);
+                        checkins?.Add(newCheckin);
+                    }
+                    else
+                    {
+                        await JSRuntime.InvokeVoidAsync("showModal", "確認", "チェックインを追加できません。");
+                    }
                 }
             }
             else
             {
-                await JSRuntime.InvokeAsync<string>("alert", "不正なコードが読み取られました");
-                // await JSRuntime.InvokeVoidAsync("showNotification", "asdf", "warning");
+                await JSRuntime.InvokeVoidAsync("showNotification", "不正なコードが読み取られました", "error");
             }
         }
-
-
-    }
-    protected override async Task OnInitializedAsync()
-    {
-        string getEventURL = Configuration["getEventURL"] ?? "";
-        string getCheckPointURL = Configuration["getCheckPointURL"] ?? "";
-
-        var eventsStr = await httpClient.GetStringAsync(getEventURL + "?liffId=AAA");
-        StringBuilder modifiedString = new StringBuilder(eventsStr);
-        string json = modifiedString.ToString();
-        events = JsonSerializer.Deserialize<Event>(json);
-
-        var checkinsStr = await httpClient.GetStringAsync(getCheckPointURL + "?lineId=userA");
-        StringBuilder checkinsString = new StringBuilder(checkinsStr);
-        string checkinsJson = checkinsString.ToString();
-        checkins = JsonSerializer.Deserialize<List<Checkin>>(checkinsJson);
-        liffId = Configuration["LiffId"];
-
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
         if (firstRender)
         {
+            liffId = Configuration["LiffId"];
+            endpoint = Configuration["endpointURL"];
+            lineID = Configuration["lineID"];
             await JSRuntime.InvokeVoidAsync("liff.init", new { liffId = liffId });
-            var isLoggedIn = await JSRuntime.InvokeAsync<bool>("liff.isLoggedIn");//liffでアクセス
+            var isLoggedIn = await JSRuntime.InvokeAsync<bool>("liff.isLoggedIn");
 
-            if (!isLoggedIn)
+            if (isLoggedIn)
+            {
+                userProfile = await JSRuntime.InvokeAsync<UserProfile>("liff.getProfile");
+                await loadData();
+            }
+            else
             {
                 await JSRuntime.InvokeVoidAsync("liff.login");
             }
         }
     }
 
-    protected override void OnInitialized()
+    private async Task loadData()
     {
-        liffId = Configuration["LiffId"];
 
+        if (!string.IsNullOrEmpty(userProfile.userId))
+        {
+            try
+            {
+                string getEventURL = String.Format(endpoint + "Rally/Event?liffId={0}", Configuration["RallyLiffId"]);
+                var jsonStr = await httpClient.GetStringAsync(getEventURL);
+                events = JsonSerializer.Deserialize<Event>(jsonStr);
+            }
+            catch (HttpRequestException ex)
+            {
+                await JSRuntime.InvokeVoidAsync("showModal", "エラー", "対応するliffIDと一致するイベントは存在しません。\n liffIDを確認してください。");
+                Console.WriteLine("HTTP request failed. Status code: " + ex.StatusCode);
+            }
+
+            try
+            {
+                string getCheckinsURL = String.Format(endpoint + "Rally/Checkins?lineId={0}&eventId={1}", userProfile.userId,
+                events?.eventId);
+                var jsonStr = await httpClient.GetStringAsync(getCheckinsURL);
+                checkins = JsonSerializer.Deserialize<List<Checkin>>(jsonStr);
+
+            }
+            catch (HttpRequestException ex)
+            {
+                await JSRuntime.InvokeVoidAsync("showModal", "エラー", "チェックイン取得にエラーがあります。");
+                Console.WriteLine("HTTP request failed. Status code: " + ex.StatusCode);
+            }
+
+
+
+            StateHasChanged();
+            if (checkins?.Count == events?.checkpoints?.Count && checkins?.Count > 0)
+            {
+                await JSRuntime.InvokeVoidAsync("disableButton");
+            }
+        }
     }
 }
